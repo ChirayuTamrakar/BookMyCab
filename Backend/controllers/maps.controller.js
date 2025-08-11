@@ -55,9 +55,15 @@ module.exports.getAutoCompleteSuggestions = async (req, res) => {
     try{
         const { input } = req.query;
         const suggestions = await mapServices.getAutoSuggesstions(input);
+        if(!suggestions || suggestions.length === 0){
+            return res.status(404).json({ message: 'No suggestions found' });w
+        } 
+        // Assuming suggestions is an array of objects with a 'description' property
+        const descriptions = suggestions.map((item)=> item.description)
         res.status(200).json({
-            data: suggestions
+            data: descriptions
         })
+
     } catch (error) {
         res.status(500).json({
             success: false,

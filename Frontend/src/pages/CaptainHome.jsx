@@ -18,31 +18,15 @@ function Riding() {
     const confirmRidePopUpRef = useRef(null);
 
 
-    useGSAP(function(){
-    if(ridePopUpPanel){
-      gsap.to(ridePopUpRef.current,{
-        transform: 'translateY(0)'
-      })
-    } else {
-      gsap.to(ridePopUpRef.current,{
-        transform: 'translateY(100%)'
-      })
-    }
-    },[ridePopUpPanel])
-
-
-    useGSAP(function(){
-    if(confirmRidePopUpPanel){
-      gsap.to(confirmRidePopUpRef.current,{
-        transform: 'translateY(0)'
-      })
-    } else {
-      gsap.to(confirmRidePopUpRef.current,{
-        transform: 'translateY(100%)'
-      })
-    }
-    },[confirmRidePopUpPanel])
-
+// GSAP is animation Library
+    const animatePanel = (ref, show) => {
+      if (!ref?.current) return;
+      gsap.to(ref.current, {
+        transform: `translateY(${show ? '0' : '100%'})`
+      });
+    };
+    useGSAP(() => animatePanel(ridePopUpRef, ridePopUpPanel), [ridePopUpPanel]);
+    useGSAP(() => animatePanel(confirmRidePopUpRef, confirmRidePopUpPanel), [confirmRidePopUpPanel]);
 
 
   return (

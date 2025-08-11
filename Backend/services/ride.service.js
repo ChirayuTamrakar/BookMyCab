@@ -1,6 +1,8 @@
 const rideModel = require('../models/ride.model')
 const mapsService = require('../services/maps.service')
- 
+const crypto = require('crypto');
+
+
 async function getFare(pickup, destination){
     if(!pickup || !destination){
         throw new Error('Pickup or destination not availabe');
@@ -43,9 +45,10 @@ async function getFare(pickup, destination){
         throw err;
     }
 }
+module.exports.getFare = getFare;
 
 async function generateOTP(num) {
-     const otp = await crypto.randomInt(Math.pow(10, num - 1), Math.pow(10, num)).toString() ;
+     const otp = (await crypto.randomInt(Math.pow(10, num - 1), Math.pow(10, num))).toString() ;
      console.log('Generated OTP:', otp);
     return otp;
 }
@@ -56,13 +59,14 @@ module.exports.createRide = async ({user, pickup, destination, vehicleType }) =>
     }
 
     const fare = await getFare(pickup, destination);
-
+    const otp = await generateOTP(4);
+    
     const ride = await rideModel.create({
         user: user,
         pickup,
         destination,
         fare: fare[vehicleType] ,
-        otp: generateOTP(4),  
+        otp
     })
     return ride;
 }

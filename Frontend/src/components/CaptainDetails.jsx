@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { CaptainDataContext } from '../context/CaptainContext'
+
+
+
+
 
 function CaptainDetails() {
+
+  const { captain } = useContext(CaptainDataContext);
+  console.log(captain);
   return (
      <div className='h-1/2 p-2 flex flex-col justify-between'>
         {/* Captain Personal Detalils */}
         <div className='flex items-center justify-between py-5 px-2'>
             <div className='flex items-center justify-between'>
-                <img className='h-15 w-15 object-cover rounded-full' src="https://tse1.mm.bing.net/th/id/OIP.yLqpokLzPRH2zspmkq0b-AHaFW?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" />
-                <h4 className='text-lg font-medium px-3'>Harsh Patel</h4>
+                <img className='h-15 w-15 object-cover rounded-full' src="https://imgs.search.brave.com/-hxiBbQvaGq6qG6lhwEWvMFTzIa1HWJXy6j0nyD2KfI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXoudG16LmNvbS9p/bWFnZS9mNC80Ynkz/LzIwMjIvMDcvMTcv/ZjQxNTg1NzUyOTg3/NDNjZTk0NTYyNWMw/NDlhOGZhYjJfc20u/anBn" />
+                <h4 className='text-lg font-medium px-3'>{captain.fullname.firstname+" "+captain.fullname.lastname}</h4>
             </div>
             <div>
                 <h4 className='text-xl font-semibold'> Rs.274 </h4>

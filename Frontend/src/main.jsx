@@ -5,14 +5,17 @@ import './index.css'
 import App from './App.jsx'
 import UserContext from './context/UserContext.jsx'
 import CaptainContext from './context/CaptainContext.jsx'
+import SocketContext from './context/SocketContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <UserContext>
       <CaptainContext>
+        <SocketContext>
       <BrowserRouter>
         <App />
       </BrowserRouter>
+      </SocketContext>
       </CaptainContext>
     </UserContext>
   </StrictMode>,
