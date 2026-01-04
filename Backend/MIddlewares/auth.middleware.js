@@ -1,7 +1,7 @@
 const captainModel = require('../models/captain.model');
 const userModel = require('../models/user.model');
-const jwt = require('jsonwebtoken');
 const blacklistTokenModel = require('../models/blackistToken.model');
+const jwt = require('jsonwebtoken');
 
 // Middleware to authenticate user -> Check if token exist
 //                                 -> is token blacklisted

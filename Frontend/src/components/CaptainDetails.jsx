@@ -1,52 +1,43 @@
+
 import React, { useContext } from 'react'
 import { CaptainDataContext } from '../context/CaptainContext'
 
+const CaptainDetails = () => {
 
+    const { captain } = useContext(CaptainDataContext)
 
-
-
-function CaptainDetails() {
-
-  const { captain } = useContext(CaptainDataContext);
-  console.log(captain);
-  return (
-     <div className='h-1/2 p-2 flex flex-col justify-between'>
-        {/* Captain Personal Detalils */}
-        <div className='flex items-center justify-between py-5 px-2'>
+    return (
+        <div>
             <div className='flex items-center justify-between'>
-                <img className='h-15 w-15 object-cover rounded-full' src="https://imgs.search.brave.com/-hxiBbQvaGq6qG6lhwEWvMFTzIa1HWJXy6j0nyD2KfI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXoudG16LmNvbS9p/bWFnZS9mNC80Ynkz/LzIwMjIvMDcvMTcv/ZjQxNTg1NzUyOTg3/NDNjZTk0NTYyNWMw/NDlhOGZhYjJfc20u/anBn" />
-                <h4 className='text-lg font-medium px-3'>{captain.fullname.firstname+" "+captain.fullname.lastname}</h4>
+                <div className='flex items-center justify-start gap-3'>
+                    <img className='h-10 w-10 rounded-full object-cover' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdlMd7stpWUCmjpfRjUsQ72xSWikidbgaI1w&s" alt="" />
+                    <h4 className='text-lg font-medium capitalize'>{captain.fullname.firstname + " " + captain.fullname.lastname}</h4>
+                </div>
+                <div>
+                    <h4 className='text-xl font-semibold'>₹295.20</h4>
+                    <p className='text-sm text-gray-600'>Earned</p>
+                </div>
             </div>
-            <div>
-                <h4 className='text-xl font-semibold'> Rs.274 </h4>
-                <p className='text-sm font-light'> Earned </p>
+            <div className='flex p-3 mt-8 bg-gray-100 rounded-xl justify-center gap-5 items-start'>
+                <div className='text-center'>
+                    <i className="text-3xl mb-2 font-thin ri-timer-2-line"></i>
+                    <h5 className='text-lg font-medium'>10.2</h5>
+                    <p className='text-sm text-gray-600'>Hours Online</p>
+                </div>
+                <div className='text-center'>
+                    <i className="text-3xl mb-2 font-thin ri-speed-up-line"></i>
+                    <h5 className='text-lg font-medium'>10.2</h5>
+                    <p className='text-sm text-gray-600'>Hours Online</p>
+                </div>
+                <div className='text-center'>
+                    <i className="text-3xl mb-2 font-thin ri-booklet-line"></i>
+                    <h5 className='text-lg font-medium'>10.2</h5>
+                    <p className='text-sm text-gray-600'>Hours Online</p>
+                </div>
+
             </div>
         </div>
-
-        {/* Captain Work Details */}
-        <div className='flex justify-between bg-[#d4d3d3] rounded-lg py-4 px-2'>
-           
-            <div className='text-center'>
-                <i className='ri-timer-2-line text-3xl font-thin'></i>
-                <h5 className='text-lg font-medium'>10.2</h5>
-                <p className='text-sm font-medium text-gray-600'>Hours Online</p>
-            </div>
-
-            <div className='text-center'>
-                <i className='ri-speed-up-fill text-3xl font-thin'></i>
-                <h5 className='text-lg font-medium'>10.2</h5>
-                <p className='text-sm font-medium text-gray-600'>Hours Online</p>
-            </div>
-
-            {/* Captain Working Hours */}
-            <div className='text-center'>
-                <i className='ri-booklet-line text-3xl font-thin'></i>
-                <h5 className='text-lg font-medium'>10.2</h5>
-                <p className='text-sm font-medium text-gray-600'>Hours Online</p>
-            </div>
-        </div>
-    </div>
-  )
+    )
 }
 
 export default CaptainDetails

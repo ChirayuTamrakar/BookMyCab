@@ -1,77 +1,60 @@
 import React from 'react'
 
-function RidePopUp(props) {
-  return (
-    <>
-        <div className='flex flex-col justify-between items-center py-5 '>
-          {/* Title and Up Down*/}
-          <div className='flex justify-between'>
-                <h1 className='text-2xl font-semibold mb-4 mx-4  '>New Ride Available</h1>
-                <h5 onClick={() => {
-                    props.setRidePopUpPanel(false)
-                }} className='absolute right-6 text-2xl '>
-                    <i className="ri-arrow-down-wide-line "></i>
-                </h5>
-          </div>
-
-          {/*Rider Name+Photo+Distance  */}
-          <div className='flex justify-between items-center px-7 w-full my-2'>
-            <div className=''>
-                <img className='h-15 w-15 object-cover rounded-full' src="https://thumbs.dreamstime.com/b/portrait-normal-man-smiling-over-grey-background-young-face-high-detailed-30820412.jpg" alt="" />
-                <h2 className='font-semibold text-lg text-black'>Chris H.</h2>
+const RidePopUp = (props) => {
+    return (
+        <div>
+            <h5 className='p-1 text-center w-[93%] absolute top-0' onClick={() => {
+                props.setRidePopupPanel(false)
+            }}><i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i></h5>
+            <h3 className='text-2xl font-semibold mb-5'>New Ride Available!</h3>
+            <div className='flex items-center justify-between p-3 bg-yellow-400 rounded-lg mt-4'>
+                <div className='flex items-center gap-3 '>
+                    <img className='h-12 rounded-full object-cover w-12' src="https://i.pinimg.com/236x/af/26/28/af26280b0ca305be47df0b799ed1b12b.jpg" alt="" />
+                    <h2 className='text-lg font-medium'>{props.ride?.user.fullname.firstname + " " + props.ride?.user.fullname.lastname}</h2>
+                </div>
+                <h5 className='text-lg font-semibold'>2.2 KM</h5>
             </div>
-            <div className='font-semibold text-md text-gray-600'>2.2 KM</div>
-          </div>
-        
-            {/*  */}
-            <div  className='flex flex-col justify-between items-center' >
-            
-                <div className='w-full'>
-
-                    {/* Pickup Point details */}
-                    <div className='flex items-center justify-start gap-4'>
-                        <i className='text-xl ri-map-2-fill'></i>
+            <div className='flex gap-2 justify-between flex-col items-center'>
+                <div className='w-full mt-5'>
+                    <div className='flex items-center gap-5 p-3 border-b-2'>
+                        <i className="ri-map-pin-user-fill"></i>
                         <div>
-                            <h3 className='text-lg font-semibold'>562/11-A</h3>
-                            <p className='font-semibold text-md text-gray-600'>Kankariya Talab, Bhopal</p>
+                            <h3 className='text-lg font-medium'>562/11-A</h3>
+                            <p className='text-sm -mt-1 text-gray-600'>{props.ride?.pickup}</p>
                         </div>
                     </div>
-
-                    <div className='w-80 h-[1px] bg-gray-300  my-2'></div>
-
-                    {/* Drop Point details */}
-                    <div className='flex items-center justify-start gap-4'>
-                        <i className='text-xl ri-map-pin-fill'></i>
+                    <div className='flex items-center gap-5 p-3 border-b-2'>
+                        <i className="text-lg ri-map-pin-2-fill"></i>
                         <div>
-                            <h3 className='text-lg font-semibold'>562/11-A</h3>
-                            <p className='font-semibold text-md text-gray-600'>Kankariya Talab, Bhopal</p>
+                            <h3 className='text-lg font-medium'>562/11-A</h3>
+                            <p className='text-sm -mt-1 text-gray-600'>{props.ride?.destination}</p>
                         </div>
                     </div>
-
-                    <div className='w-80 h-[1px] bg-gray-300  my-2'></div>   
-
-                    {/* Fare Charges Deatils */}
-                    <div className='flex items-center justify-start gap-4'>
-                        <i className='text-xl ri-currency-line'></i>
+                    <div className='flex items-center gap-5 p-3'>
+                        <i className="ri-currency-line"></i>
                         <div>
-                            <h3 className='text-lg font-semibold'>Rs.193.5</h3>
+                            <h3 className='text-lg font-medium'>₹{props.ride?.fare} </h3>
+                            <p className='text-sm -mt-1 text-gray-600'>Cash Cash</p>
                         </div>
                     </div>
+                </div>
+                <div className='mt-5 w-full '>
+                    <button onClick={() => {
+                        props.setConfirmRidePopupPanel(true)
+                        props.confirmRide()
+
+                    }} className=' bg-green-600 w-full text-white font-semibold p-2 px-10 rounded-lg'>Accept</button>
+
+                    <button onClick={() => {
+                        props.setRidePopupPanel(false)
+
+                    }} className='mt-2 w-full bg-gray-300 text-gray-700 font-semibold p-2 px-10 rounded-lg'>Ignore</button>
+
 
                 </div>
-
             </div>
-            <button onClick={() => { 
-                props.setRidePopUpPanel(false);
-                props.setConfirmRidePopUpPanel(true);
-            }} className='flex justify-center border-2 rounded-md mt-7 text-lg font-bold py-2 px-25 bg-green-500  text-white'>Accept</button>
-            
-            <button onClick={() => { 
-                props.setRidePopUpPanel(false);
-            }} className='flex justify-center border-2 rounded-md mt-2 text-lg font-bold py-2 px-27 bg-gray-400  text-white'>Ignore</button>
         </div>
-    </>
-  ) 
+    )
 }
 
 export default RidePopUp

@@ -45,8 +45,14 @@ const rideSchema = new mongoose.Schema({
     otp:{
         type: String,
         select: false,
-        required: true    }
+        required: true    
+    }
 })
 
 
 module.exports = mongoose.model('ride', rideSchema );
+{/* This line creates a Mongoose model named "ride" using the rideSchema you defined, and exports it for use in other files.
+    mongoose.model('ride', rideSchema):
+    Registers a model called "ride" in Mongoose, which will use the rideSchema structure and map to the "rides" collection in MongoDB.
+    module.exports = ...:
+    Makes this model available to import in other files (e.g., controllers, services).*/}

@@ -1,41 +1,57 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { CaptainDataContext } from '../context/CaptainContext';
+import React, { useContext, useEffect, useState } from 'react'
+import { CaptainDataContext } from '../context/CaptainContext'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
-const CaptainProtectedWrapper = ({ children }) => {
-  const navigate = useNavigate();
-  const { captain, setCaptain } = useContext(CaptainDataContext);
-  const [isLoading, setIsLoading] = useState(true);
+const CaptainProtectWrapper = ({
+    children
+}) => {
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token')
+    const navigate = useNavigate()
+    const { captain, setCaptain } = useContext(CaptainDataContext)
+    const [ isLoading, setIsLoading ] = useState(true)
 
-    if (!token) {
-      navigate('/captain-login');
-      return;
+
+
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/captain-login')
+        }
+
+        axios.get(`${import.meta.env.VITE_BASE_URL}/captains/profile`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(response => {
+            if (response.status === 200) {
+                setCaptain(response.data.captain)
+                setIsLoading(false)
+            }
+        })
+            .catch(err => {
+
+                localStorage.removeItem('token')
+                navigate('/captain-login')
+            })
+    }, [ token ])
+
+    
+
+    if (isLoading) {
+        return (
+            <div>Loading...</div>
+        )
     }
 
-    axios.get(`${import.meta.env.VITE_BASE_URL}/captains/profile`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-    }).then((response) => {
-        if (response.status === 200 || response.status === 201) {
-          setCaptain(response.data.captain);
-          setIsLoading(false);
-        }
-    }).catch((err) => {
-        console.error('Auth error:', err);
-        navigate('/captain-login');
-    });
-  }, [navigate, setCaptain]);
 
-  if (isLoading) {
-    return <h1>LOADING...</h1>;
-  }
 
-  return <>{children}</>;
-};
+    return (
+        <>
+            {children}
+        </>
+    )
+}
 
-export default CaptainProtectedWrapper;
+export default CaptainProtectWrapper

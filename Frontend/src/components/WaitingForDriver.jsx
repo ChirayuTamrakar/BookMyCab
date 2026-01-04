@@ -1,56 +1,48 @@
 import React from 'react'
 
-function WaitingForDriver(props) {
+const WaitingForDriver = (props) => {
   return (
-        <div className='flex flex-col justify-between items-center py-5'>
-        
-            <div className='flex justify-between'>
-                <h2 className='text-xl font-semibold mb-4 mx-4  '>Waiting for a Driver</h2>
-                <h5 onClick={() => {
-                    props.setWaitingForDriver(prev => !prev);
-                }} className='absolute right-6 text-2xl'>
-                    <i className="ri-line-fill"></i>
-                </h5>
+    <div>
+      <h5 className='p-1 text-center w-[93%] absolute top-0' onClick={() => {
+        props.waitingForDriver(false)
+      }}><i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i></h5>
 
-            </div>
-
-            <div  className='flex flex-col justify-between items-center'>
-                <div className='w-full'>
-
-                    {/* Driver's details */}
-                    <div className='flex items-center justify-between gap-4'>
-                        <img className='h-20 w-30 object-contain' src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco/v1554506931/navigation/UberXL.png" alt="" />
-                        <div className='flex flex-col items-end'>
-                            <h3 className='text-md font-semibold '>Sarthak Shrivanstav</h3>
-                            <h3 className='text-md font-semibold -mt-1'>MP09-AB-2730</h3>
-                            <p className='font-semibold text-sm text-gray-600'>Mariti Suzuki Alto</p>
-                        </div>
-                    </div>
-
-                    {/* PickUpPoint */}
-                    <div className='w-80 h-[1px] bg-gray-300  my-2'></div>
-                    <div className='flex items-center justify-start gap-4'>
-                        <i className='text-xl ri-map-pin-fill'></i>
-                        <div>
-                            <h3 className='text-lg font-semibold'>562/11-A</h3>
-                            <p className='font-semibold text-md text-gray-600'>Kankariya Talab, Bhopal</p>
-                        </div>
-                    </div>
-
-                    {/* Fare-Section */}
-                    <div className='w-80 h-[1px] bg-gray-300  my-2'></div>
-                    <div className='flex items-center justify-start gap-4'>
-                        <i className='text-xl ri-currency-line'></i>
-                        <div>
-                            <h3 className='text-lg font-semibold'>Rs.193.5</h3>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-
+      <div className='flex items-center justify-between'>
+        <img className='h-12' src="https://swyft.pl/wp-content/uploads/2023/05/how-many-people-can-a-uberx-take.jpg" alt="" />
+        <div className='text-right'>
+          <h2 className='text-lg font-medium capitalize'>{props.ride?.captain.fullname.firstname}</h2>
+          <h4 className='text-xl font-semibold -mt-1 -mb-1'>{props.ride?.captain.vehicle.plate}</h4>
+          <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
+          <h1 className='text-lg font-semibold'>  {props.ride?.otp} </h1>
         </div>
+      </div>
+
+      <div className='flex gap-2 justify-between flex-col items-center'>
+        <div className='w-full mt-5'>
+          <div className='flex items-center gap-5 p-3 border-b-2'>
+            <i className="ri-map-pin-user-fill"></i>
+            <div>
+              <h3 className='text-lg font-medium'>562/11-A</h3>
+              <p className='text-sm -mt-1 text-gray-600'>{props.ride?.pickup}</p>
+            </div>
+          </div>
+          <div className='flex items-center gap-5 p-3 border-b-2'>
+            <i className="text-lg ri-map-pin-2-fill"></i>
+            <div>
+              <h3 className='text-lg font-medium'>562/11-A</h3>
+              <p className='text-sm -mt-1 text-gray-600'>{props.ride?.destination}</p>
+            </div>
+          </div>
+          <div className='flex items-center gap-5 p-3'>
+            <i className="ri-currency-line"></i>
+            <div>
+              <h3 className='text-lg font-medium'>₹{props.ride?.fare} </h3>
+              <p className='text-sm -mt-1 text-gray-600'>Cash Cash</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

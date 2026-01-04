@@ -1,42 +1,30 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
-import axios from 'axios';
 
-function LocationSearchPanel({ setPanelOpen, setVehiclePanel, inputValue, setInputValue }) {
+const LocationSearchPanel = ({ suggestions, setVehiclePanel, setPanelOpen, setPickup, setDestination, activeField }) => {
 
-        const [locations, setLocations] = useState([]);
+    const handleSuggestionClick = (suggestion) => {
+        if (activeField === 'pickup') {
+            setPickup(suggestion)
+        } else if (activeField === 'destination') {
+            setDestination(suggestion)
+        }
+        // setVehiclePanel(true)
+        // setPanelOpen(false)
+    }
 
-        useEffect(() => {
-                async function fetchLocations() {
-                        try {
-                                if(inputValue != "") {
-                                        const response = await axios.get(`http://localhost:4000/maps/get-suggestions?input=${inputValue}`);
-                                        setLocations(response.data.data);
-                                        } 
-                        } catch (error) {
-                                console.error("Error fetching locations:", error);
-                        }
-                }
-                fetchLocations();
-        }, [inputValue]);
-
-
-        return (
-        <>  
-                {
-                locations.map( function(element, idx){
-                        return(
-                                <div key={idx} onClick={()=>{
-                                setInputValue(element);
-                                }} className='flex item-center border-2 border-white active:border-gray-500 justify-center bg-[#eee] mx-4 my-2 rounded-lg py-2 '>
-                                        <h2 className='bg-[#eee] px-3 w-[10%] rounded-full'><i className='ri-map-pin-fill'></i></h2>
-                                        <h4 className='px-2 text-sm w-[90%]'>{element}</h4>
-                                </div>
-                        )
-                })
-                }
-        </>
-        )
+    return (
+        <div>
+            {/* Display fetched suggestions */}
+            {
+                suggestions.map((elem, idx) => (
+                    <div key={idx} onClick={() => handleSuggestionClick(elem)} className='flex gap-4 border-2 p-3 border-gray-50 active:border-black rounded-xl items-center my-2 justify-start'>
+                        <h2 className='bg-[#eee] h-8 flex items-center justify-center w-12 rounded-full'><i className="ri-map-pin-fill"></i></h2>
+                        <h4 className='font-medium'>{elem}</h4>
+                    </div>
+                ))
+            }
+        </div>
+    )
 }
 
-export default LocationSearchPanel;
+export default LocationSearchPanel
