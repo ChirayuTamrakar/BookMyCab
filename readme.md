@@ -1,69 +1,113 @@
-Yes, ✅ all JavaScript objects must have values in key-value pairs.
+🚕 Book My Ride
 
-That means every value inside an object must be tied to a key (or property name).
+Book My Ride is a full-stack ride-booking web application that connects passengers with nearby drivers in real time. It provides live location tracking, accurate ETA and pricing calculations, and instant ride updates using WebSockets.
+
+Built to simulate real-world ride-hailing platforms like Uber/Ola, with a focus on scalability, security, and real-time communication.
+
+✨ Features
+
+User and Driver authentication with secure JWT-based authorization
+
+Real-time ride booking and driver matching using Socket.IO
+
+Live location tracking with Google Maps
+
+Accurate ETA and distance-based fare calculation using Google Distance Matrix API
+
+Real-time ride status updates (requested, accepted, ongoing, completed)
+
+Driver availability management
+
+User profile and booking history management
+
+🛠 Tech Stack
+
+Frontend
+
+React.js
+
+Tailwind CSS
+
+Axios
+
+Backend
+
+Node.js
+
+Express.js
+
+Socket.IO
+
+Database
+
+MongoDB (Mongoose)
+
+APIs & Services
+
+Google Maps API
+
+Google Distance Matrix API
+
+Authentication & Security
+
+JWT (JSON Web Tokens)
+
+bcrypt (password hashing)
+
+⚙️ Installation & Setup
+1. Clone the repository
+git clone https://github.com/ChirayuTamrakar/BookMyCab.git
+cd BookMyCab
+
+2. Install dependencies
+
+For backend:
+
+cd backend
+npm install
 
 
-2-----------------
-const ride = rideModel.create({
-    user,
-    pickup,
-    destination,
-    fare: fare[vehicleType]   
-    
-    Either you explicitly define  the key or just pass the props in sequence 
-    
-})    
+For frontend:
 
-3------------------
+cd frontend
+npm install
 
+3. Environment Variables
 
-Great question!
-In Express, when you use route-level middleware and validators, the array syntax is needed if you want to pass multiple middleware functions as a group.
+Create a .env file in the backend directory and add:
+
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 
 
-4------------------
-Yes, this code will return the data to the client because of the res.status(200).json({ data: suggestions }) line.
+⚠️ Never push .env files to GitHub.
 
-In Express, you do not need to use a return statement before res.status().json() for the response to be sent.
-The return is only needed if you want to stop further code execution after sending the response (for example, in error handling).
+4. Run the application
+
+Start backend:
+
+npm run dev
 
 
-5--------------------
-This is how conditional rendering is done  as you cant use if else 
+Start frontend:
 
-{/* Location */}
-          {panelOpen && (
-          <div ref={panelRef} className='h-[0%] bg-white '>
-            <LocationSearchPanel 
-              setPanelOpen={setPanelOpen} 
-              setVehiclePanel={setVehiclePanel} 
-              inputValue={activeField === "pickup" ? pickUpLocation : dropLocation}
-              setInputValue={activeField === "pickup" ? setPickUpLocation : setDropLocation}
-            />
-          </div>
+npm start
 
-6_________________________-----------------
-If vehicleFoundRef.current is null when this runs (e.g., during first render), GSAP throws a warning — and sometimes, the fallback behavior can be unpredictable.
-PROBLEM:
-useGSAP(() => {
-  if(vehicleFound){
-    gsap.to(vehicleFoundRef.current,{
-      transform: 'translateY(0)'
-    })
-  } else {
-    gsap.to(vehicleFoundRef.current,{
-      transform: 'translateY(100%)'
-    })
-  }
-}, [vehicleFound])
 
-SOLUTION:
-useGSAP(() => {
-  if (!vehicleFoundRef.current) return;  // <- prevents "target null" errors
+The app will run locally on:
 
-  gsap.to(vehicleFoundRef.current, {
-    transform: vehicleFound ? 'translateY(0)' : 'translateY(100%)',
-    duration: 0.4,
-    ease: 'power2.out'
-  });
-}, [vehicleFound]);
+Frontend: http://localhost:3000
+
+Backend: http://localhost:5000
+
+🧠 Project Architecture
+
+RESTful APIs handle authentication, bookings, users, and drivers
+
+Socket.IO enables real-time communication for ride matching and updates
+
+MongoDB stores users, drivers, rides, and booking history
+
+Google APIs handle maps, distance calculations, and ETA logic
